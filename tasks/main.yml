@@ -2,5 +2,9 @@
 - name: install_gearman
   yum: name='gearmand' state='present'
 
-- name: intsall mod_gearman
+- name: install libgearman
+  yum: name='libgearman' state='present'
+
+- name: install mod_gearman
   yum: name="http://mod-gearman.org/download/v2.1.5/rhel7/x86_64/mod_gearman2-2.1.5-1.rhel7.x86_64.rpm" state='present'
+
