@@ -1,4 +1,4 @@
-ansible-role-hp-firmware-upgrade
+ansible-role-mod_gearman
 =========
 
 Ansible role to install and configure mod_gearman.
