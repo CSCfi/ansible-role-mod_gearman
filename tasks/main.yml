@@ -6,5 +6,5 @@
   yum: name='libgearman' state='present'
 
 - name: install mod_gearman
-  yum: name="http://mod-gearman.org/download/v2.1.5/rhel7/x86_64/mod_gearman2-2.1.5-1.rhel7.x86_64.rpm" state='present'
+  yum: name="https://houston.csc.fi/pub/rpm/el7/mod_gearman2-2.1.5_opsview201310-3.el7.csc.x86_64.rpm" state='present'
 
