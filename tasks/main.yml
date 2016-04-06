@@ -5,6 +5,17 @@
 - name: install libgearman
   yum: name='libgearman' state='present'
 
-- name: install mod_gearman
-  yum: name="https://houston.csc.fi/pub/rpm/el7/mod_gearman2-2.1.5_opsview201310-3.el7.csc.x86_64.rpm" state='present'
+- name: start gearmand
+  service: name=gearmand state=started enabled=yes
 
+- name: copy mod_gearman2 rpm 
+  copy: src=files/mod_gearman2-2.1.5_opsview201310-3.el7.csc.x86_64.rpm dest=/tmp/mod_gearman2-2.1.5_opsview201310-3.el7.csc.x86_64.rpm
+
+- name: install mod_gearman
+  yum: name="/tmp/mod_gearman2-2.1.5_opsview201310-3.el7.csc.x86_64.rpm" state='present'
+
+- name: copy mod_gearman_worker.conf
+  template: src=mod_gearman2_worker.conf.j2 dest=/etc/mod_gearman2/mod_gearman2_worker.conf
+
+- name: Start mod_gearman2_worker service
+  service: name=mod-gearman2-worker state=started enabled=yes
