@@ -18,10 +18,12 @@
   template: src=mod_gearman2_worker.conf.j2 dest=/etc/mod_gearman2/mod_gearman2_worker.conf
 
 - name: Create nagios checks directory
-  file: path=/usr/local/nagios/libexec state=directory recurse=yes force=yes
+  file: path=/usr/local/nagios/ state=directory recurse=yes force=yes
+  run_once: true
 
 - name: Create symlinks
-  file: path=/usr/local/nagios/libexec src=/usr/lib64/nagios/plugins state=link force=yes
+  file: path=/usr/local/nagios/libexec src=/usr/lib64/nagios/plugins state=link 
+  run_once: true
 
 - name: Start mod_gearman2_worker service
   service: name=mod-gearman2-worker state=started enabled=yes
