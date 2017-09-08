@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/CSCfi/ansible-role-mod_gearman.svg)](https://travis-ci.org/CSCfi/ansible-role-mod_gearman)
 ansible-role-mod_gearman
 =========
 
