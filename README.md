@@ -19,6 +19,9 @@ Example Playbook
 - hosts: servers
   roles:
      - { role: ansible-role-mod_gearman }
+  vars:
+    hostgroups: ['compute', 'login']
+
 ```
 License
 -------
