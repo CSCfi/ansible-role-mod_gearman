@@ -21,9 +21,16 @@
   file: path=/usr/local/nagios/ state=directory recurse=yes force=yes
   run_once: true
 
+- name: Does nagios plugin dir exist?
+  stat: path=/usr/lib64/nagios/plugins
+  register: reg_gearman_nagios_plugin_dir
+  changed_when: False
+  ignore_errors: True
+
 - name: Create symlinks
   file: path=/usr/local/nagios/libexec src=/usr/lib64/nagios/plugins state=link 
   run_once: true
+  when: reg_gearman_nagios_plugin_dir is defined and reg_gearman_nagios_plugin_dir.stat.exists
 
 - name: Start mod_gearman2_worker service
   service: name=mod-gearman2-worker state=started enabled=yes
