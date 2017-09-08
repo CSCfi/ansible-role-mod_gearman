@@ -3,5 +3,9 @@
  - hosts: localhost
    remote_user: root
 
+   pre_tasks:
+     - name: create nagios user manually while testing because the RPM PREIN requires it
+       user:
+         name: "nagios"
    roles:
      - ansible-role-mod_gearman
