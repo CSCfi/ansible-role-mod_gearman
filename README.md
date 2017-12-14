@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/CSCfi/ansible-role-mod_gearman.svg)](https://travis-ci.org/CSCfi/ansible-role-mod_gearman)
 ansible-role-mod_gearman
 =========
 
@@ -8,6 +9,8 @@ Dependencies
 
 The epel repo must be available.
 
+There must also be a nagios user available. Use central user management or configure extra users with https://github.com/CSCfi/ansible-role-users
+
 Example Playbook
 ----------------
 
@@ -16,6 +19,9 @@ Example Playbook
 - hosts: servers
   roles:
      - { role: ansible-role-mod_gearman }
+  vars:
+    hostgroups: ['compute', 'login']
+
 ```
 License
 -------
