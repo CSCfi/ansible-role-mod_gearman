@@ -1,0 +1,6 @@
+---
+mod_gearman_job_timeout: "60"
+mod_gearman_min_worker: "20"
+mod_gearman_max_worker: "60"
+mod_gearman_max_jobs: "1000"
+...

@@ -10,6 +10,7 @@
 
 - name: copy mod_gearman2 rpm 
   copy: src=files/mod_gearman2-2.1.5_opsview201310-3.el7.csc.x86_64.rpm dest=/tmp/mod_gearman2-2.1.5_opsview201310-3.el7.csc.x86_64.rpm
+  check_mode: no
 
 - name: install mod_gearman
   yum: name="/tmp/mod_gearman2-2.1.5_opsview201310-3.el7.csc.x86_64.rpm" state='present'

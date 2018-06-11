@@ -4,6 +4,10 @@
    remote_user: root
    vars:
      hostgroups: ['compute', 'login']
+     mod_gearman_job_timeout: "90"
+     mod_gearman_min_worker: "30"
+     mod_gearman_max_worker: "90"
+     mod_gearman_max_jobs: "1010"
 
    pre_tasks:
      - name: create nagios user manually while testing because the RPM PREIN requires it
