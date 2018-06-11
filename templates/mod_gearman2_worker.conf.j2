@@ -1,4 +1,5 @@
 # mod_gearman2 worker settings for CSC monitoring servers.
+# {{ ansible_managed }}
 #
 # /etc/mod_gearman2/mod_gearman2_worker.conf
 #
@@ -77,18 +78,18 @@ pidfile=/var/run/mod_gearman2/mod_gearman2_worker.pid
 # Default job timeout in seconds. Currently this value is only used for
 # eventhandler. The worker will use the values from the core for host and
 # service checks.
-job_timeout=60
+job_timeout={{ mod_gearman_job_timeout }}
 
 # Minimum number of worker processes which should
 # run at any time.
-min-worker=20
+min-worker={{ mod_gearman_min_worker }}
 
 # Maximum number of worker processes which should
 # run at any time. You may set this equal to
 # min-worker setting to disable dynamic starting of
 # workers. When setting this to 1, all services from
 # this worker will be executed one after another.
-max-worker=50
+max-worker={{ mod_gearman_max_worker }}
 
 # Time after which an idling worker exists
 # This parameter controls how fast your waiting workers will
@@ -98,7 +99,7 @@ idle-timeout=30
 # Controls the amount of jobs a worker will do before he exits
 # Use this to control how fast the amount of workers will go down
 # after high load times
-max-jobs=1000
+max-jobs={{ mod_gearman_max_jobs }}
 
 # max-age is the threshold for discarding too old jobs. When a new job is older
 # than this amount of seconds it will not be executed and just discarded. Set to
