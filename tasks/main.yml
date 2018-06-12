@@ -19,6 +19,7 @@
   template: src=mod_gearman2_worker.conf.j2 dest=/etc/mod_gearman2/mod_gearman2_worker.conf
   notify:
     - restart mod-gearman2-worker
+    - restart gearmand
 
 - name: Create nagios checks directory
   file: path=/usr/local/nagios/ state=directory recurse=yes force=yes
