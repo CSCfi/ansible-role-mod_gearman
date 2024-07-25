@@ -1,9 +1,11 @@
 ---
+- name: restart mod-gearman-worker
+  service: name=mod-gearman-worker state=restarted
 
 - name: restart mod-gearman2-worker
   service: name=mod-gearman2-worker state=restarted
-    
+
 - name: restart gearmand
   service: name=gearmand state=restarted
-    
+
 ...
