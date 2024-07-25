@@ -1,4 +1,9 @@
 ---
+- name: set facts for alma linux
+  set_fact:
+    rhel7: "{{ ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7' }}"
+    rhel8: "{{ ansible_os_family == 'RedHat' and ansible_distribution_major_version == '8' }}"
+
 - name: install_gearman
   yum: name='gearmand' state='present'
 
@@ -8,18 +13,46 @@
 - name: start gearmand
   service: name=gearmand state=started enabled=yes
 
-- name: copy mod_gearman2 rpm 
+- name: copy mod_gearman2 rpm
   copy: src=files/mod_gearman2-2.1.5_opsview201310-3.el7.csc.x86_64.rpm dest=/tmp/mod_gearman2-2.1.5_opsview201310-3.el7.csc.x86_64.rpm
   check_mode: no
+  when: rhel7|bool
 
 - name: install mod_gearman
   yum: name="/tmp/mod_gearman2-2.1.5_opsview201310-3.el7.csc.x86_64.rpm" state='present'
+  when: alma7|bool
+
+- name: install perl-libs in alma linux
+  yum: name="perl-libs" state='present'
+  when: rhel8|bool
+
+- name: copy mod_gearman rpm in alma linux 8
+  copy: src=files/mod_gearman-5.1.2-1.rhel8.x86_64.rpm dest=/tmp/mod_gearman-5.1.2-1.rhel8.x86_64.rpm
+  check_mode: no
+  when: rhel88|bool
+
+- name: install mod_gearman in almalinux 8
+  yum:
+    name: "/tmp/mod_gearman-5.1.2-1.rhel8.x86_64.rpm"
+    state: 'present'
+    disable_gpg_check: no
+    validate_certs: no
+    update_cache: yes
+  when: rhel8|bool
 
 - name: copy mod_gearman_worker.conf
   template: src=mod_gearman2_worker.conf.j2 dest=/etc/mod_gearman2/mod_gearman2_worker.conf
   notify:
     - restart mod-gearman2-worker
     - restart gearmand
+  when: rhel7|bool
+
+- name: copy mod_gearman_worker.conf in alma linux 8
+  template: src=mod_gearman2_worker.conf.j2 dest=/etc/mod_gearman/mod_gearman2_worker.conf
+  notify:
+    - restart mod-gearman2-worker
+    - restart gearmand
+  when: rhel8|bool
 
 - name: Create nagios checks directory
   file: path=/usr/local/nagios/ state=directory recurse=yes force=yes
@@ -32,9 +65,14 @@
   ignore_errors: True
 
 - name: Create symlinks
-  file: path=/usr/local/nagios/libexec src=/usr/lib64/nagios/plugins state=link 
+  file: path=/usr/local/nagios/libexec src=/usr/lib64/nagios/plugins state=link
   run_once: true
   when: reg_gearman_nagios_plugin_dir is defined and reg_gearman_nagios_plugin_dir.stat.exists
 
 - name: Start mod_gearman2_worker service
   service: name=mod-gearman2-worker state=started enabled=yes
+  when: rhel8|bool
+
+- name: Start mod_gearman2_worker service in alma8
+  service: name=mod-gearman-worker state=started enabled=yes
+  when: rhel8|bool
