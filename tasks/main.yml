@@ -71,7 +71,7 @@
 
 - name: Start mod_gearman2_worker service
   service: name=mod-gearman2-worker state=started enabled=yes
-  when: rhel8|bool
+  when: rhel7|bool
 
 - name: Start mod_gearman2_worker service in alma8
   service: name=mod-gearman-worker state=started enabled=yes
