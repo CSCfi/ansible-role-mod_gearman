@@ -31,9 +31,8 @@
   yum:
     name: "/tmp/mod_gearman-5.1.2-1.rhel8.x86_64.rpm"
     state: 'present'
-    disable_gpg_check: no
+    disable_gpg_check: yes
     validate_certs: no
-    update_cache: yes
   when: rhel8|bool
 
 - name: copy mod_gearman_worker.conf
