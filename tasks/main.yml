@@ -43,7 +43,7 @@
   when: rhel7|bool
 
 - name: copy mod_gearman_worker.conf in alma linux 8
-  template: src=mod_gearman_worker.conf.j2 dest=/etc/mod_gearman/worker.conf
+  template: src=mod_gearman2_worker.conf.j2 dest=/etc/mod_gearman/worker.conf
   notify:
     - restart mod-gearman-worker
     - restart gearmand
