@@ -20,7 +20,11 @@
 debug=0
 
 # Path to the logfile.
+{% if ansible_distribution_major_version == '7' %}
 logfile=/var/log/mod_gearman2/mod_gearman2_worker.log
+{% if ansible_distribution_major_version == '8' %}
+logfile=/var/log/mod_gearman/mod_gearman_worker.log
+{% endif %}
 
 # sets the addess of your gearman job server. Can be specified
 # more than once to add more server.
@@ -73,7 +77,11 @@ key=oreWorker20279pi=202791365669553
 #keyfile=/etc/mod_gearman2/gearman_shared_key
 
 # Path to the pidfile. Usually set by the init script
+{% if ansible_distribution_major_version == '7' %}
 pidfile=/var/run/mod_gearman2/mod_gearman2_worker.pid
+{% if ansible_distribution_major_version == '8' %}
+pidfile=/var/run/mod_gearman/mod_gearman_worker.pid
+{% endif %}
 
 # Default job timeout in seconds. Currently this value is only used for
 # eventhandler. The worker will use the values from the core for host and
@@ -153,7 +161,11 @@ use_perl_cache=on
 
 # path to p1 file which is used to execute and cache the
 # perl scripts run by the embedded perl interpreter
+{% if ansible_distribution_major_version == '7' %}
 p1_file=/usr/share/mod_gearman2/mod_gearman2_p1.pl
+{% if ansible_distribution_major_version == '8' %}
+p1_file=/usr/share/mod_gearman/mod_gearman_p1.pl
+{% endif %}
 
 
 # Workarounds
